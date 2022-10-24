@@ -1,8 +1,8 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import Joi from 'joi';
+import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -10,9 +10,12 @@ import { BooksModule } from './books/books.module';
 import { CommandsModule } from './commands/commands.module';
 import { StarsResolver } from './stars/stars.resolver';
 import { StarsModule } from './stars/stars.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    MulterModule.register({ dest: './uploads' }),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -20,9 +23,15 @@ import { StarsModule } from './stars/stars.module';
         MONGODB_URI: Joi.string().required()
       }),
     }),
+    MongooseModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI'),
+      }),
+      inject: [ConfigService],
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: true
+      autoSchemaFile: 'schema.gql'
     }),
     UsersModule,
     BooksModule,

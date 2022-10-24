@@ -13,4 +13,4 @@ export class Star {
   userId: Types.ObjectId
 }
 
-export const startSchema = SchemaFactory.createForClass(Star);
+export const starSchema = SchemaFactory.createForClass(Star);

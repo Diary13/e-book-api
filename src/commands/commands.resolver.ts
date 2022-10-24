@@ -6,30 +6,30 @@ import { UpdateCommandInput } from './dto/update-command.input';
 
 @Resolver(() => Command)
 export class CommandsResolver {
-  constructor(private readonly commandsService: CommandsService) {}
+  constructor(private readonly commandsService: CommandsService) { }
 
-  @Mutation(() => Command)
-  createCommand(@Args('createCommandInput') createCommandInput: CreateCommandInput) {
-    return this.commandsService.create(createCommandInput);
-  }
+  // @Mutation(() => Command)
+  // createCommand(@Args('createCommandInput') createCommandInput: CreateCommandInput) {
+  //   return this.commandsService.create(createCommandInput);
+  // }
 
-  @Query(() => [Command], { name: 'commands' })
-  findAll() {
-    return this.commandsService.findAll();
-  }
+  // @Query(() => [Command], { name: 'commands' })
+  // findAll() {
+  //   return this.commandsService.findAll();
+  // }
 
-  @Query(() => Command, { name: 'command' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.commandsService.findOne(id);
-  }
+  // @Query(() => Command, { name: 'command' })
+  // findOne(@Args('id', { type: () => Int }) id: number) {
+  //   return this.commandsService.findOne(id);
+  // }
 
-  @Mutation(() => Command)
-  updateCommand(@Args('updateCommandInput') updateCommandInput: UpdateCommandInput) {
-    return this.commandsService.update(updateCommandInput.id, updateCommandInput);
-  }
+  // @Mutation(() => Command)
+  // updateCommand(@Args('updateCommandInput') updateCommandInput: UpdateCommandInput) {
+  //   return this.commandsService.update(updateCommandInput.id, updateCommandInput);
+  // }
 
-  @Mutation(() => Command)
-  removeCommand(@Args('id', { type: () => Int }) id: number) {
-    return this.commandsService.remove(id);
-  }
+  // @Mutation(() => Command)
+  // removeCommand(@Args('id', { type: () => Int }) id: number) {
+  //   return this.commandsService.remove(id);
+  // }
 }
