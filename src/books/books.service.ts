@@ -12,7 +12,7 @@ export class BooksService {
 
   constructor(@InjectModel(Book.name) private bookModel: Model<bookDocument>) { }
 
-  async create(createBookInput: Omit<BookType, 'id'>): Promise<any> {// ou InputType
+  async create(createBookInput: Omit<BookType, 'id'>): Promise<any> {// or InputType
     try {
       const findBook = await this.bookModel.findOne({ title: createBookInput.title });
       if (!findBook) {
@@ -29,7 +29,7 @@ export class BooksService {
     }
   }
 
-  async update(updateBookInput: UpdateBookInput) {
+  async update(updateBookInput: UpdateBookInput): Promise<Book> {
     try {
       const updateBook = this.bookModel.findOneAndUpdate({ _id: updateBookInput.id }, {
         title: updateBookInput.title,
@@ -39,6 +39,8 @@ export class BooksService {
         price: updateBookInput.price,
         image: updateBookInput.image,
         quantity: updateBookInput.quantity
+      }, {
+        new: true //return updated element
       });
       return updateBook;
     } catch (error) {
@@ -74,12 +76,8 @@ export class BooksService {
             message: "book deleted successfully"
           }
       }
-      return {
-        statusCode: HttpStatus.NOT_FOUND,
-        message: "book not found"
-      }
     } catch (error) {
-      throw new InternalServerErrorException();
+      throw new NotFoundException();
     }
   }
 }

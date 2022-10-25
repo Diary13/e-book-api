@@ -14,7 +14,7 @@ export class User {
   tel: string;
   @Prop()
   image: string;
-  @Prop()
+  @Prop({ default: false })
   isAdmin: boolean;
 }
 

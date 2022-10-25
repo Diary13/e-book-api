@@ -2,6 +2,21 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type UserType {
+  id: String!
+  username: String!
+  password: String!
+  email: String!
+  tel: String!
+  image: String!
+  isAdmin: Boolean!
+}
+
+type HttpResponse {
+  statusCode: Float!
+  message: String!
+}
+
 type BookType {
   id: ID!
   title: String!
@@ -18,16 +33,14 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type HttpResponse {
-  statusCode: Float!
-  message: String!
-}
-
 type Query {
+  users: [UserType!]!
+  user(id: String!): UserType!
   books: [BookType!]!
   book(id: String!): BookType!
 }
 
 type Mutation {
+  removeUser(id: String!): HttpResponse!
   removeBook(id: String!): HttpResponse!
 }
