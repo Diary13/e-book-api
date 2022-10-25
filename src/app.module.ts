@@ -12,9 +12,12 @@ import { StarsResolver } from './stars/stars.resolver';
 import { StarsModule } from './stars/stars.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MulterModule } from '@nestjs/platform-express';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    AuthModule,
     MulterModule.register({ dest: './uploads' }),
     ConfigModule.forRoot({
       isGlobal: true,
