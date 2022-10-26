@@ -43,7 +43,14 @@ type CommandType {
   userId: UserType!
 }
 
+type StarType {
+  notice: Float!
+  bookId: BookType!
+  userId: UserType!
+}
+
 type Query {
+  stars(bookId: String!): [StarType!]!
   users: [UserType!]!
   user(id: String!): UserType!
   books: [BookType!]!
@@ -53,12 +60,19 @@ type Query {
 }
 
 type Mutation {
+  createStar(createStarInput: CreateStarInput!): HttpResponse!
   removeUser(id: String!): HttpResponse!
   removeBook(id: String!): HttpResponse!
   createCommand(createCommandInput: CreateCommandInput!): HttpResponse!
   updateCommand(updateCommandInput: UpdateCommandInput!): CommandType!
   cancelCommand(id: String!): HttpResponse!
   removeCommand(id: String!): HttpResponse!
+}
+
+input CreateStarInput {
+  notice: Float!
+  bookId: String!
+  userId: String!
 }
 
 input CreateCommandInput {

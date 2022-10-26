@@ -2,6 +2,10 @@ import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateStarInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field()
+  notice: number
+  @Field()
+  bookId: string;
+  @Field()
+  userId: string
 }
