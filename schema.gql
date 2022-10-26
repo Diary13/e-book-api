@@ -33,14 +33,49 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type CommandType {
+  id: String!
+  quantity: Float!
+  createdAt: DateTime!
+  deliverAt: DateTime!
+  deliveryAddress: String!
+  bookId: BookType!
+  userId: UserType!
+}
+
 type Query {
   users: [UserType!]!
   user(id: String!): UserType!
   books: [BookType!]!
   book(id: String!): BookType!
+  commands: [CommandType!]!
+  command(id: String!): CommandType!
 }
 
 type Mutation {
   removeUser(id: String!): HttpResponse!
   removeBook(id: String!): HttpResponse!
+  createCommand(createCommandInput: CreateCommandInput!): HttpResponse!
+  updateCommand(updateCommandInput: UpdateCommandInput!): CommandType!
+  cancelCommand(id: String!): HttpResponse!
+  removeCommand(id: String!): HttpResponse!
+}
+
+input CreateCommandInput {
+  quantity: Float!
+  createdAt: DateTime
+  deliverAt: DateTime
+  deliveryAddress: String!
+  bookId: String!
+  userId: String!
+}
+
+input UpdateCommandInput {
+  quantity: Float
+  createdAt: DateTime
+  deliverAt: DateTime
+  deliveryAddress: String
+  bookId: String
+  userId: String
+  id: String!
 }

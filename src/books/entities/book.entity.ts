@@ -17,7 +17,7 @@ export class Book {
   @Prop()
   image: string;
   @Prop()
-  quantity: string;
+  quantity: number;
 }
 
 export const bookSchema = SchemaFactory.createForClass(Book);

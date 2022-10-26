@@ -3,33 +3,40 @@ import { CommandsService } from './commands.service';
 import { Command } from './entities/command.entity';
 import { CreateCommandInput } from './dto/create-command.input';
 import { UpdateCommandInput } from './dto/update-command.input';
+import { HttpResponse } from 'src/types/httpResponse';
+import { CommandType } from './dto/command.output';
 
 @Resolver(() => Command)
 export class CommandsResolver {
   constructor(private readonly commandsService: CommandsService) { }
 
-  // @Mutation(() => Command)
-  // createCommand(@Args('createCommandInput') createCommandInput: CreateCommandInput) {
-  //   return this.commandsService.create(createCommandInput);
-  // }
+  @Mutation(() => HttpResponse)
+  createCommand(@Args('createCommandInput') createCommandInput: CreateCommandInput) {
+    return this.commandsService.create(createCommandInput);
+  }
 
-  // @Query(() => [Command], { name: 'commands' })
-  // findAll() {
-  //   return this.commandsService.findAll();
-  // }
+  @Query(() => [CommandType], { name: 'commands' })
+  findAll() {
+    return this.commandsService.findAll();
+  }
 
-  // @Query(() => Command, { name: 'command' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.commandsService.findOne(id);
-  // }
+  @Query(() => CommandType, { name: 'command' })
+  findOne(@Args('id', { type: () => String }) id: string) {
+    return this.commandsService.findOne(id);
+  }
 
-  // @Mutation(() => Command)
-  // updateCommand(@Args('updateCommandInput') updateCommandInput: UpdateCommandInput) {
-  //   return this.commandsService.update(updateCommandInput.id, updateCommandInput);
-  // }
+  @Mutation(() => CommandType)
+  updateCommand(@Args('updateCommandInput') updateCommandInput: UpdateCommandInput) {
+    return this.commandsService.update(updateCommandInput);
+  }
 
-  // @Mutation(() => Command)
-  // removeCommand(@Args('id', { type: () => Int }) id: number) {
-  //   return this.commandsService.remove(id);
-  // }
+  @Mutation(() => HttpResponse)
+  cancelCommand(@Args('id', { type: () => String }) id: string) {
+    return this.commandsService.cancelCommand(id);
+  }
+
+  @Mutation(() => HttpResponse)
+  removeCommand(@Args('id', { type: () => String }) id: string) {
+    return this.commandsService.remove(id);
+  }
 }
