@@ -35,6 +35,7 @@ export class BooksService {
         title: updateBookInput.title,
         description: updateBookInput.description,
         author: updateBookInput.author,
+        genre: updateBookInput.genre,
         EditionDate: updateBookInput.EditionDate,
         price: updateBookInput.price,
         image: updateBookInput.image,

@@ -2,11 +2,11 @@ import { Body, Controller, InternalServerErrorException, NotAcceptableException,
 import { AuthService } from "./auth.service";
 import { AuthDto } from "./dto/auth.dto";
 
-@Controller('Auth')
+@Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService) { }
 
-    @Post()
+    @Post('login')
     async login(@Body() authDto: AuthDto) {
         try {
             return this.authService.login(authDto);

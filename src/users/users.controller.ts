@@ -20,11 +20,26 @@ export class UsersController {
     @UseInterceptors(FileInterceptor('image', { dest: './uploads/users' }))
     async create(@UploadedFile() image, @Body() createUserInput: CreateUserInput) {
         try {
-            const data = { path: './uploads/users/' + Date.now() + '_' + image.originalname };
-            fs.renameSync('./uploads/users/' + image.filename, data.path);
+            let data;
+            if (!createUserInput.isAdmin) {
+                if (image) {
+                    data = { path: './uploads/users/' + Date.now() + '_' + image.originalname };
+                    fs.renameSync('./uploads/users/' + image.filename, data.path);
+                } else {
+                    data = { path: './uploads/users/user.png' };
+                }
+            } else {
+                if (image) {
+                    data = { path: './uploads/users/' + Date.now() + '_' + image.originalname };
+                    fs.renameSync('./uploads/users/' + image.filename, data.path);
+                } else
+                    data = { path: './uploads/users/admin.png' };
+            }
             const result = await this.usersService.create({ ...createUserInput, image: data.path });
-            if (result.statusCode == HttpStatus.UNAUTHORIZED)
-                fs.unlinkSync(data.path);
+            if (result.statusCode == HttpStatus.UNAUTHORIZED) {
+                if (image)
+                    fs.unlinkSync(data.path);
+            }
             return result;
         } catch (error) {
             throw new HttpException("Could not save user", HttpStatus.UNAUTHORIZED);

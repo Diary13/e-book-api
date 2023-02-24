@@ -16,6 +16,9 @@ export class BookType {
     // @IsNotEmpty()
     readonly author: string;
     @Field()
+    // @IsNotEmpty()
+    readonly genre: string;
+    @Field()
     readonly EditionDate: Date;
     @Field()
     // @IsNotEmpty()

@@ -22,6 +22,7 @@ type BookType {
   title: String!
   description: String!
   author: String!
+  genre: String!
   EditionDate: DateTime!
   price: Float!
   image: String!

@@ -34,10 +34,11 @@ export class AuthService {
                         image: foundUser.image,
                         isAdmin: foundUser.isAdmin
                     }
-                    return this.jwtService.sign(payload);
+                    return { token: this.jwtService.sign(payload) };
                 }
+                return new UnauthorizedException("Invalid password");
             }
-            return new UnauthorizedException();
+            return new UnauthorizedException("User not exist");
         } catch (error) {
             throw new InternalServerErrorException();
         }

@@ -12,6 +12,9 @@ export class CreateBookInput {
   @Field()
   @IsNotEmpty()
   author: string;
+  @Field()
+  @IsNotEmpty()
+  genre: string;
   @Field({ defaultValue: Date.now() })
   EditionDate: Date;
   @Field()
