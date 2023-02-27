@@ -17,6 +17,8 @@ export class Book {
   @Prop()
   image: string;
   @Prop()
+  genre: string;
+  @Prop()
   quantity: number;
 }
 
